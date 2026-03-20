@@ -12,6 +12,7 @@ from presentation.api.auth.serializers import RegisterSerializer, LoginSerialize
 from application.services.analytics_service import AnalyticsService
 from infrastructure.repositories.user_repository import DjangoUserRepository
 from infrastructure.repositories.product_repository import DjangoProductRepository
+from django.utils import timezone
 
 User = get_user_model()
 
@@ -61,6 +62,9 @@ class LoginView(APIView):
                 status=status.HTTP_403_FORBIDDEN
             )
 
+        user.last_login = timezone.now()
+        user.save(update_fields=['last_login'])
+        
         refresh = RefreshToken.for_user(user)
         return Response({
             "message": "Login berhasil.",
