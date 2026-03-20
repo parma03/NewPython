@@ -1,0 +1,102 @@
+<div class="page-wrapper" ng-controller="DashboardController as vm">
+
+  <!-- Greeting -->
+  <div class="greeting-bar">
+    <div>
+      <p class="greeting-text">{{ vm.greeting }}, <strong>{{ vm.currentUser.username }}</strong> 👋</p>
+      <p class="greeting-sub">Berikut adalah ringkasan data sistem Anda hari ini.</p>
+    </div>
+    <div class="role-badge" ng-class="vm.currentUser.role">
+      {{ vm.currentUser.role | uppercase }}
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-state" ng-if="vm.loading">
+    <div class="spinner"></div>
+    <p>Memuat data...</p>
+  </div>
+
+  <!-- Error -->
+  <div class="alert-error" ng-if="vm.error && !vm.loading">{{ vm.error }}</div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid" ng-if="vm.stats && !vm.loading">
+
+    <div class="stat-card stat-card--blue">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+          <path d="M16 3.13a4 4 0 010 7.75"/>
+        </svg>
+      </div>
+      <div class="stat-content">
+        <div class="stat-value">{{ vm.stats.total_users }}</div>
+        <div class="stat-label">Total User</div>
+      </div>
+      <div class="stat-bg-icon">👥</div>
+    </div>
+
+    <div class="stat-card stat-card--purple">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </div>
+      <div class="stat-content">
+        <div class="stat-value">{{ vm.stats.total_admin }}</div>
+        <div class="stat-label">Total Admin</div>
+      </div>
+      <div class="stat-bg-icon">🛡️</div>
+    </div>
+
+    <div class="stat-card stat-card--green">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </div>
+      <div class="stat-content">
+        <div class="stat-value">{{ vm.stats.total_pelanggan }}</div>
+        <div class="stat-label">Total Pelanggan</div>
+      </div>
+      <div class="stat-bg-icon">🙋</div>
+    </div>
+
+    <!-- Admin Only: Produk -->
+    <div class="stat-card stat-card--orange" ng-if="vm.isAdmin">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+        </svg>
+      </div>
+      <div class="stat-content">
+        <div class="stat-value">{{ vm.stats.total_products }}</div>
+        <div class="stat-label">Total Barang</div>
+      </div>
+      <div class="stat-bg-icon">📦</div>
+    </div>
+
+  </div>
+
+  <!-- Quick Actions (Admin Only) -->
+  <div class="quick-actions" ng-if="vm.isAdmin && !vm.loading">
+    <h3 class="section-title">Aksi Cepat</h3>
+    <div class="action-grid">
+      <a class="action-card" ui-sref="products">
+        <span class="action-icon">📦</span>
+        <span>Kelola Barang</span>
+      </a>
+      <a class="action-card" ui-sref="users">
+        <span class="action-icon">👥</span>
+        <span>Kelola User</span>
+      </a>
+    </div>
+  </div>
+
+</div>

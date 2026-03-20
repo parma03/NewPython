@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id" ng-app="AppModule">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AppSystem</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- AngularJS 1.8 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+  <!-- Angular UI Router -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.30/angular-ui-router.min.js"></script>
+
+  <link rel="stylesheet" href="app/assets/css/styles.css">
+</head>
+<body>
+
+  <!-- App Shell: sidebar + main content -->
+  <div class="app-shell" ng-if="$root.isAuthenticated">
+    <!-- Sidebar -->
+    <aside class="sidebar" ng-include="'app/shared/components/sidebar/sidebar.html'"></aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="topbar">
+        <div class="topbar-left">
+          <h2 class="page-title">{{ $root.pageTitle }}</h2>
+        </div>
+        <div class="topbar-right">
+          <div class="user-info">
+            <div class="user-avatar">{{ $root.currentUser.username | limitTo:1 | uppercase }}</div>
+            <div class="user-meta">
+              <span class="user-name">{{ $root.currentUser.username }}</span>
+              <span class="user-role badge-role" ng-class="$root.currentUser.role">{{ $root.currentUser.role }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-area">
+        <ui-view></ui-view>
+      </div>
+    </main>
+  </div>
+
+  <!-- Auth pages (no sidebar) -->
+  <div class="auth-shell" ng-if="!$root.isAuthenticated">
+    <ui-view></ui-view>
+  </div>
+
+  <!-- Scripts -->
+  <script src="app/app.js"></script>
+  <script src="app/shared/interceptors/auth.interceptor.js"></script>
+  <script src="app/shared/components/sidebar/sidebar.component.js"></script>
+
+  <!-- Auth Module -->
+  <script src="app/modules/auth/auth.module.js"></script>
+  <script src="app/modules/auth/auth.service.js"></script>
+  <script src="app/modules/auth/login/login.controller.js"></script>
+  <script src="app/modules/auth/register/register.controller.js"></script>
+
+  <!-- Dashboard Module -->
+  <script src="app/modules/dashboard/dashboard.module.js"></script>
+  <script src="app/modules/dashboard/dashboard.controller.js"></script>
+
+  <!-- Products Module -->
+  <script src="app/modules/products/products.module.js"></script>
+  <script src="app/modules/products/products.service.js"></script>
+  <script src="app/modules/products/list/products-list.controller.js"></script>
+  <script src="app/modules/products/form/products-form.controller.js"></script>
+
+  <!-- Users Module -->
+  <script src="app/modules/users/users.module.js"></script>
+  <script src="app/modules/users/users.service.js"></script>
+  <script src="app/modules/users/list/users-list.controller.js"></script>
+  <script src="app/modules/users/form/users-form.controller.js"></script>
+</body>
+</html>

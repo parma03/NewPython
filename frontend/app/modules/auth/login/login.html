@@ -1,0 +1,57 @@
+<div class="auth-page">
+  <div class="auth-bg">
+    <div class="auth-orb orb-1"></div>
+    <div class="auth-orb orb-2"></div>
+  </div>
+
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="auth-logo">
+        <span class="logo-mark-lg">AS</span>
+      </div>
+      <h1 class="auth-title">Selamat Datang</h1>
+      <p class="auth-subtitle">Masuk ke akun Anda untuk melanjutkan</p>
+    </div>
+
+    <form class="auth-form" ng-submit="vm.login()" novalidate>
+      <div class="alert-error" ng-if="vm.error">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        {{ vm.error }}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <input class="form-input"
+               type="text"
+               ng-model="vm.credentials.username"
+               placeholder="Masukkan username"
+               autocomplete="username"
+               required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input"
+               type="password"
+               ng-model="vm.credentials.password"
+               placeholder="Masukkan password"
+               autocomplete="current-password"
+               required>
+      </div>
+
+      <button class="btn-primary btn-full" type="submit" ng-disabled="vm.loading">
+        <span ng-if="!vm.loading">Masuk</span>
+        <span ng-if="vm.loading" class="loading-dots">
+          <span></span><span></span><span></span>
+        </span>
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      Belum punya akun?
+      <a ui-sref="register" class="auth-link">Daftar sekarang</a>
+    </div>
+  </div>
+</div>
